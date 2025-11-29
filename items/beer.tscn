@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://crey8cpdc3qg5"]
+
+[ext_resource type="Script" uid="uid://dshelmw7y44qg" path="res://addons/escoria-core/game/core-scripts/esc_item.gd" id="1_7dirw"]
+[ext_resource type="Texture2D" uid="uid://b57ta28m8n4x8" path="res://assets/mug.png" id="2_tmcrh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmgj0"]
+size = Vector2(452, 491)
+
+[node name="Beer" type="Area2D"]
+process_mode = 1
+script = ExtResource("1_7dirw")
+global_id = "beer"
+esc_script = "res://items/beer.esc"
+combine_when_selected_action_is_in = PackedStringArray()
+inventory_texture = ExtResource("2_tmcrh")
+inventory_texture_hovered = ExtResource("2_tmcrh")
+metadata/_custom_type_script = "uid://dshelmw7y44qg"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tmcrh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(23, 3.5)
+shape = SubResource("RectangleShape2D_kmgj0")

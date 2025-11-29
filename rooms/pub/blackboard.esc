@@ -1,0 +1,5 @@
+:look
+	say($graham, "That's good to hear. I'm thirsty.")
+
+:use $beer
+	say($graham, "Why should I throw it at the blackboard? I'm not angry!")

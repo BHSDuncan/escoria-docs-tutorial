@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://bc8witfow1164"]
+
+[ext_resource type="Script" uid="uid://c7fcpp72w3dnj" path="res://addons/escoria-core/game/core-scripts/esc_room.gd" id="1_uaver"]
+[ext_resource type="Texture2D" uid="uid://bkym8ea41joif" path="res://assets/pub_bg.png" id="2_74wau"]
+[ext_resource type="PackedScene" uid="uid://d4c2uvpbsg52p" path="res://characters/graham/graham.tscn" id="2_62622"]
+[ext_resource type="Script" uid="uid://fnwnfflaoeqp" path="res://addons/escoria-core/game/core-scripts/esc_background.gd" id="3_62622"]
+[ext_resource type="Script" uid="uid://5pbcieq7gpdo" path="res://addons/escoria-core/game/core-scripts/esc_terrain.gd" id="4_wot2k"]
+[ext_resource type="Script" uid="uid://beh3ds4eapldu" path="res://addons/escoria-core/game/core-scripts/esc_location.gd" id="5_rjevf"]
+[ext_resource type="Script" uid="uid://dshelmw7y44qg" path="res://addons/escoria-core/game/core-scripts/esc_item.gd" id="7_wot2k"]
+[ext_resource type="Script" uid="uid://chu4bvqgwxuts" path="res://addons/escoria-core/game/core-scripts/esc_interaction_location.gd" id="8_rjevf"]
+[ext_resource type="Texture2D" uid="uid://dmwubr5gpt3n8" path="res://assets/barrels_fg.png" id="9_06esw"]
+[ext_resource type="PackedScene" uid="uid://crey8cpdc3qg5" path="res://items/beer.tscn" id="10_2ofdy"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_06esw"]
+vertices = PackedVector2Array(1040.95, 941, 737.25, 941, 901.688, 881.742, 1536.38, 724.883, 1631.34, 723.172, 1637.33, 897.773, 1469.53, 866.469, 2995.58, 729.359, 3222.62, 755.109, 3259.8, 941, 2911.23, 787.539, 2807.29, 843.594, 1356.85, 920.688, 1044.73, 941, 1218.27, 879.508, 2284.9, 930.992, 1815.04, 901.977, 2000.19, 935.008)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(11, 10, 9), PackedInt32Array(12, 6, 5), PackedInt32Array(13, 14, 12), PackedInt32Array(15, 11, 9), PackedInt32Array(5, 16, 17, 12), PackedInt32Array(13, 12, 17), PackedInt32Array(9, 13, 17), PackedInt32Array(9, 17, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(680, 951, 902, 871, 1043, 931, 1218, 869, 1356, 910, 1462, 859, 1530, 715, 1641, 713, 1647, 888, 1816, 892, 2001, 925, 2284, 921, 2804, 834, 2906, 779, 2993, 719, 3231, 746, 3272, 951)])
+
+[node name="Pub" type="Node2D"]
+script = ExtResource("1_uaver")
+global_id = "pub"
+player_scene = ExtResource("2_62622")
+camera_limits = [Rect2(0, 0, 3976, 1080)]
+metadata/_custom_type_script = "uid://c7fcpp72w3dnj"
+
+[node name="escbackground" type="TextureRect" parent="."]
+offset_right = 3976.0
+offset_bottom = 956.0
+scale = Vector2(0.79, 0.79)
+mouse_filter = 2
+texture = ExtResource("2_74wau")
+script = ExtResource("3_62622")
+metadata/_custom_type_script = "uid://fnwnfflaoeqp"
+
+[node name="ESCTerrain" type="Node2D" parent="."]
+script = ExtResource("4_wot2k")
+metadata/_custom_type_script = "uid://5pbcieq7gpdo"
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="ESCTerrain"]
+scale = Vector2(0.79, 0.79)
+navigation_polygon = SubResource("NavigationPolygon_06esw")
+
+[node name="start" type="Marker2D" parent="."]
+position = Vector2(1235, 644)
+script = ExtResource("5_rjevf")
+global_id = "start"
+is_start_location = true
+metadata/_custom_type_script = "uid://beh3ds4eapldu"
+
+[node name="Blackboard" type="Area2D" parent="."]
+process_mode = 1
+script = ExtResource("7_wot2k")
+global_id = "blackboard"
+esc_script = "res://rooms/pub/blackboard.esc"
+combine_when_selected_action_is_in = PackedStringArray()
+metadata/_custom_type_script = "uid://dshelmw7y44qg"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blackboard"]
+polygon = PackedVector2Array(810, 70, 810, 287, 921, 299, 930, 90)
+
+[node name="ESCInteractionLocation" type="Marker2D" parent="Blackboard"]
+position = Vector2(958, 710)
+script = ExtResource("8_rjevf")
+metadata/_custom_type_script = "uid://chu4bvqgwxuts"
+
+[node name="Barrels" type="Area2D" parent="."]
+process_mode = 1
+z_index = 700
+script = ExtResource("7_wot2k")
+global_id = "barrels"
+combine_when_selected_action_is_in = PackedStringArray()
+inventory_texture = ExtResource("9_06esw")
+inventory_texture_hovered = ExtResource("9_06esw")
+metadata/_custom_type_script = "uid://dshelmw7y44qg"
+
+[node name="Sprite2D" type="Sprite2D" parent="Barrels"]
+position = Vector2(2412, 650)
+scale = Vector2(0.79, 0.79)
+texture = ExtResource("9_06esw")
+
+[node name="Beer" parent="." instance=ExtResource("10_2ofdy")]
+position = Vector2(1863, 324)
+scale = Vector2(0.25, 0.25)
+combine_when_selected_action_is_in = PackedStringArray("use")
+use_from_inventory_only = true
+
+[node name="ESCInteractionLocation" type="Marker2D" parent="Beer"]
+position = Vector2(256, 1620)
+script = ExtResource("8_rjevf")
+metadata/_custom_type_script = "uid://chu4bvqgwxuts"
