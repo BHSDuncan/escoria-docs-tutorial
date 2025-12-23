@@ -82,6 +82,7 @@ texture = ExtResource("9_06esw")
 position = Vector2(1863, 324)
 scale = Vector2(0.25, 0.25)
 combine_when_selected_action_is_in = PackedStringArray("use")
+hover_enabled = true
 use_from_inventory_only = true
 
 [node name="ESCInteractionLocation" type="Marker2D" parent="Beer"]

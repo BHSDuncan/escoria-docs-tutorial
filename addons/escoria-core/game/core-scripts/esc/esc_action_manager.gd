@@ -346,7 +346,7 @@ func _get_event_to_queue(
 					var action_name = action
 					if combine_with.global_id:
 						action_name += " " + combine_with.global_id
-	
+
 					var combine_name = action
 					if combine_with.global_id:
 						combine_name += " " + target.global_id
@@ -659,6 +659,7 @@ func perform_inputevent_on_object(
 			# If object is in inventory make it current tool.
 			if escoria.inventory_manager.inventory_has(obj.global_id):
 				current_tool = obj
+			return
 		# If clicked object doesn't need a combination, then we simply run the action.
 		else:
 			event_to_queue = _get_event_to_queue(current_action, obj)
